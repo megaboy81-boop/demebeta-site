@@ -1,0 +1,150 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { records } from '../../data/records';
+
+const top10 = records.slice(0, 10);
+const rest = records.slice(10);
+const defaultRecord = records[0];
+const recordsJson = JSON.stringify(records);
+---
+
+<Layout title="Records" description="DEMEBETA 디자인 기록 — 30 피스 아카이브">
+  <div class="flex h-[calc(100vh-56px)] overflow-hidden">
+
+    <!-- 좌측 리스트 -->
+    <aside class="w-full md:w-80 lg:w-96 border-r border-[#2C2C2C]/10 overflow-y-auto flex-shrink-0">
+      <div class="p-6 border-b border-[#2C2C2C]/8">
+        <p class="font-mono text-caption tracking-[0.2em] uppercase mb-1" style="color: rgba(44,44,44,0.35);">Design Records</p>
+        <p class="font-display font-bold text-xl" style="color: var(--text-ink);">30 Pieces</p>
+      </div>
+
+      <!-- TOP 10 -->
+      <div class="p-4">
+        <p class="font-mono text-caption tracking-[0.15em] uppercase px-2 py-3" style="color: rgba(44,44,44,0.3);">— Recent</p>
+        {top10.map((r) => (
+          <button
+            data-record={r.id}
+            class="record-item w-full text-left px-3 py-4 border-b border-[#2C2C2C]/5 hover:bg-[#2C2C2C]/3 transition-colors group"
+          >
+            <div class="flex items-start gap-3">
+              <div class="w-2 h-2 rounded-full mt-1.5 flex-shrink-0" style={`background-color: ${r.color};`}></div>
+              <div>
+                <p class="font-mono text-caption tracking-[0.1em]" style="color: rgba(44,44,44,0.4);">{r.serial}</p>
+                <p class="font-kr text-sm mt-0.5" style="color: var(--text-ink);">{r.name}</p>
+              </div>
+              <span class="ml-auto font-mono text-caption px-1.5 py-0.5 flex-shrink-0"
+                    style={`color: ${r.status === 'RELEASED' ? 'rgba(85,93,80,0.7)' : 'rgba(44,44,44,0.3)'}; font-size: 10px;`}>
+                {r.status}
+              </span>
+            </div>
+          </button>
+        ))}
+
+        <!-- 나머지 20 -->
+        <p class="font-mono text-caption tracking-[0.15em] uppercase px-2 py-3 mt-4" style="color: rgba(44,44,44,0.3);">— Archive</p>
+        {rest.map((r) => (
+          <button
+            data-record={r.id}
+            class="record-item w-full text-left px-3 py-3 border-b border-[#2C2C2C]/5 hover:bg-[#2C2C2C]/3 transition-colors"
+          >
+            <div class="flex items-center gap-3">
+              <div class="w-1.5 h-1.5 rounded-full flex-shrink-0" style={`background-color: ${r.color}; opacity: 0.6;`}></div>
+              <p class="font-mono text-caption tracking-[0.08em]" style="color: rgba(44,44,44,0.5);">{r.serial}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+    </aside>
+
+    <!-- 우측 상세 (클릭 시 교체) -->
+    <main class="flex-1 overflow-y-auto hidden md:block p-10 lg:p-14" id="record-detail">
+      <div id="detail-content">
+        <p class="font-mono text-caption tracking-[0.2em] mb-6" style="color: rgba(44,44,44,0.3);">
+          {defaultRecord.serial}
+        </p>
+        <div class="aspect-video archive-photo mb-8 flex items-center justify-center"
+             style={`background-color: ${defaultRecord.color}; max-width: 480px;`}>
+          <span class="font-mono text-caption" style="color: rgba(249,248,246,0.2);">
+            {defaultRecord.id} placeholder
+          </span>
+        </div>
+        <h2 class="font-display font-bold text-h2 uppercase mb-2" style="color: var(--text-ink);">
+          {defaultRecord.name}
+        </h2>
+        <p class="font-mono text-caption tracking-[0.12em] mb-8" style="color: rgba(44,44,44,0.35);">
+          {defaultRecord.season} · {defaultRecord.status}
+        </p>
+        <div class="grid grid-cols-2 gap-0 border border-[#2C2C2C]/10 max-w-sm">
+          <div class="p-4 border-b border-r border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">CLOSURE</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">{defaultRecord.specs.closure}</p>
+          </div>
+          <div class="p-4 border-b border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">BRIM</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">{defaultRecord.specs.brim}</p>
+          </div>
+          <div class="p-4 border-r border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">PANELS</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">{defaultRecord.specs.panels}</p>
+          </div>
+          <div class="p-4">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">FIT</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">{defaultRecord.specs.fit}</p>
+          </div>
+        </div>
+        <p class="font-mono text-sm mt-8 p-4 border border-[#2C2C2C]/8 max-w-sm" style="color: rgba(44,44,44,0.5);">
+          Material: {defaultRecord.material}<br />
+          Technique: {defaultRecord.technique}
+        </p>
+      </div>
+    </main>
+  </div>
+  <!-- 데이터 JSON 주입 -->
+  <script id="record-json" type="application/json" set:html={recordsJson}></script>
+</Layout>
+
+<script>
+  const recordData = JSON.parse(document.getElementById('record-json')!.textContent!);
+
+  const buttons = document.querySelectorAll('.record-item');
+  const detailContent = document.getElementById('detail-content');
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-record');
+      const r = recordData.find((x: any) => x.id === id);
+      if (!r || !detailContent) return;
+
+      detailContent.innerHTML = `
+        <p class="font-mono text-caption tracking-[0.2em] mb-6" style="color: rgba(44,44,44,0.3);">${r.serial}</p>
+        <div class="aspect-video archive-photo mb-8 flex items-center justify-center"
+             style="background-color: ${r.color}; max-width: 480px;">
+          <span class="font-mono text-caption" style="color: rgba(249,248,246,0.2);">${r.id} placeholder</span>
+        </div>
+        <h2 class="font-display font-bold text-2xl uppercase mb-2" style="color: var(--text-ink);">${r.name}</h2>
+        <p class="font-mono text-caption tracking-[0.12em] mb-8" style="color: rgba(44,44,44,0.35);">${r.season} · ${r.status}</p>
+        <div class="grid grid-cols-2 gap-0 border border-[#2C2C2C]/10 max-w-sm">
+          <div class="p-4 border-b border-r border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">CLOSURE</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">${r.specs.closure}</p>
+          </div>
+          <div class="p-4 border-b border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">BRIM</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">${r.specs.brim}</p>
+          </div>
+          <div class="p-4 border-r border-[#2C2C2C]/8">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">PANELS</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">${r.specs.panels}</p>
+          </div>
+          <div class="p-4">
+            <p class="font-mono text-caption mb-1" style="color: rgba(44,44,44,0.35);">FIT</p>
+            <p class="font-kr text-sm" style="color: var(--text-ink);">${r.specs.fit}</p>
+          </div>
+        </div>
+        <p class="font-mono text-sm mt-8 p-4 border border-[#2C2C2C]/8 max-w-sm" style="color: rgba(44,44,44,0.5);">
+          Material: ${r.material}<br />Technique: ${r.technique}
+        </p>
+      `;
+    });
+  });
+</script>

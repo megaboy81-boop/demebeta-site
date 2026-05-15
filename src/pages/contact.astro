@@ -1,0 +1,54 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Contact" description="DEMEBETA 연락처">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 pb-6">
+    <p class="font-mono text-caption tracking-[0.25em] uppercase mb-4" style="color: rgba(44,44,44,0.35);">
+      Contact
+    </p>
+    <h1 class="font-display font-bold uppercase tracking-tight" style="color: var(--text-ink); font-size: clamp(28px, 4vw, 56px);">
+      GET IN TOUCH
+    </h1>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+    <div class="max-w-md flex flex-col gap-8">
+      <!-- 이메일 -->
+      <div class="border-b border-[#2C2C2C]/8 pb-8">
+        <p class="font-mono text-caption tracking-[0.15em] uppercase mb-2" style="color: rgba(44,44,44,0.35);">Email</p>
+        <a href="mailto:hello@demebeta.com"
+           class="font-display text-lg font-bold tracking-tight transition-opacity hover:opacity-60"
+           style="color: var(--text-ink);">
+          hello@demebeta.com
+        </a>
+        <p class="font-kr text-caption mt-2" style="color: rgba(44,44,44,0.45);">
+          협업 · 스톡키스트 · 일반 문의
+        </p>
+      </div>
+
+      <!-- 인스타그램 -->
+      <div class="border-b border-[#2C2C2C]/8 pb-8">
+        <p class="font-mono text-caption tracking-[0.15em] uppercase mb-2" style="color: rgba(44,44,44,0.35);">Instagram</p>
+        <a href="https://www.instagram.com/demebeta_official"
+           target="_blank" rel="noopener"
+           class="font-display text-lg font-bold tracking-tight transition-opacity hover:opacity-60"
+           style="color: var(--text-ink);">
+          @demebeta_official
+        </a>
+        <p class="font-kr text-caption mt-2" style="color: rgba(44,44,44,0.45);">
+          신규 출시 알림 · 룩북 · DM 문의
+        </p>
+      </div>
+
+      <!-- 주소 -->
+      <div>
+        <p class="font-mono text-caption tracking-[0.15em] uppercase mb-2" style="color: rgba(44,44,44,0.35);">Base</p>
+        <p class="font-kr text-base" style="color: var(--text-ink);">
+          Seoul, Seongdong-gu (성수동)
+        </p>
+        <p class="font-mono text-caption mt-1" style="color: rgba(44,44,44,0.35);">Korea · 대한민국</p>
+      </div>
+    </div>
+  </section>
+</Layout>

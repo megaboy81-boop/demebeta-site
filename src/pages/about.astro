@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const personas = [
+  { label: 'Restrained', desc: '과하지 않은 절제된 미감. 존재감은 있되 소리치지 않는다.' },
+  { label: 'Quiet Flex', desc: '조용한 자신감. 아는 사람만 아는 브랜드.' },
+  { label: 'Archive', desc: '빈티지와 아카이브 문화에서 영감 받은 디자인 언어.' },
+  { label: 'Off-White Temperature', desc: '따뜻한 오프화이트 온도감. 차갑지 않은 미니멀.' },
+  { label: 'Intentional', desc: '모든 디테일에 이유가 있다. 우연한 요소는 없다.' },
+];
+
+const timeline = [
+  { year: '2021', event: '서울 성수에서 브랜드 창립. 첫 번째 Trucker 시리즈 출시.' },
+  { year: '2022', event: '29CM 입점. Quiet Snap 시리즈 전개.' },
+  { year: '2023', event: '셀럽 착용 바이럴. 아카이브 컬렉션 론칭.' },
+  { year: '2024', event: 'SS 2024 신규 시리즈 — Quiet Flex 캠페인.' },
+];
+---
+
+<Layout title="About" description="DEMEBETA 브랜드 스토리 — 2021 성수에서 시작한 인디 스트릿웨어 캡 브랜드">
+
+  <!-- 히어로 -->
+  <section class="relative h-[50vh] min-h-[360px] flex items-end archive-photo"
+           style="background-color: var(--bg-dark-film);">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pb-16">
+      <p class="font-mono text-caption tracking-[0.4em] uppercase mb-3" style="color: rgba(229,229,229,0.3);">About</p>
+      <h1 class="font-display font-bold" style="color: var(--text-faded); font-size: clamp(28px, 5vw, 56px);">
+        From Seongsu<br />with Intent
+      </h1>
+    </div>
+  </section>
+
+  <!-- 브랜드 스토리 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+      <div>
+        <p class="font-mono text-caption tracking-[0.3em] uppercase mb-6" style="color: rgba(44,44,44,0.35);">Brand Story</p>
+        <p class="font-kr leading-relaxed mb-5" style="color: var(--text-ink); font-size: 15px; line-height: 1.75;">
+          DEMEBETA는 2021년 서울 성수에서 시작된 인디 스트릿웨어 캡 브랜드입니다.
+          박남민이 운영하며, Living Archive 컨셉으로 Quiet Flex from Seongsu를 추구합니다.
+        </p>
+        <p class="font-kr mb-5" style="color: rgba(44,44,44,0.55); font-size: 14px; line-height: 1.75;">
+          ALD 매거진의 편집적 구조, HUMAN MADE의 빈티지 온도, 빛바랜 아날로그 필름의 질감.
+          도쿄 스트릿의 아카이브 문화와 성수의 인디 에너지를 한 장의 캡에 담습니다.
+        </p>
+        <p class="font-kr" style="color: rgba(44,44,44,0.55); font-size: 14px; line-height: 1.75;">
+          59,000원–89,000원. 29CM 입점. 셀럽 착용. 그래도 조용히.
+        </p>
+
+        <!-- 페르소나 5단어 -->
+        <div class="mt-10 flex flex-wrap gap-2">
+          {personas.map((p) => (
+            <span class="font-mono text-caption px-3 py-1.5 border border-[#2C2C2C]/15"
+                  style="color: rgba(44,44,44,0.5); font-size: 11px;">
+              {p.label}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <!-- 이미지 placeholder -->
+      <div class="aspect-[3/4] archive-photo flex items-center justify-center" style="background-color: #C8A882;">
+        <span class="font-mono text-caption opacity-20" style="color: var(--bg-vintage-paper);">Brand Image</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 페르소나 -->
+  <section class="border-t border-[#1A1A1A]/8 py-20">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <p class="text-xs tracking-[0.3em] uppercase text-[#1A1A1A]/40 mb-10">Brand Persona</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {personas.map((p) => (
+          <div class="border border-[#1A1A1A]/10 p-7">
+            <p class="font-display text-sm font-bold tracking-[0.08em] uppercase mb-3">{p.label}</p>
+            <p class="text-xs text-[#1A1A1A]/55 leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 타임라인 -->
+  <section class="py-20 bg-[#1A1A1A]">
+    <div class="max-w-7xl mx-auto px-6 md:px-12">
+      <p class="text-xs tracking-[0.3em] uppercase text-[#F5F1EA]/30 mb-10">Timeline</p>
+      <div class="space-y-8">
+        {timeline.map((item) => (
+          <div class="flex gap-8 items-start border-t border-[#F5F1EA]/8 pt-7">
+            <p class="font-display font-bold text-[#B89968] text-sm tracking-widest w-14 flex-shrink-0">
+              {item.year}
+            </p>
+            <p class="text-[#F5F1EA]/60 text-sm leading-relaxed">{item.event}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 박남민 대표 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-12 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div class="aspect-square img-placeholder analog" style="background-color: #8A8580; max-width: 320px;">
+        <span class="text-xs tracking-[0.2em] uppercase opacity-30 font-display">Director</span>
+      </div>
+      <div>
+        <p class="text-xs tracking-[0.3em] uppercase text-[#1A1A1A]/40 mb-4">Founder</p>
+        <h2 class="font-display text-2xl font-bold tracking-tight mb-2">박남민</h2>
+        <p class="text-xs text-[#1A1A1A]/40 tracking-widest uppercase mb-6">Park Nam-min · Director</p>
+        <p class="text-sm text-[#1A1A1A]/60 leading-relaxed">
+          DEMEBETA를 2021년 성수에서 창립.
+          조용하지만 강한 브랜드 아이덴티티를 캡이라는 단일 카테고리에 집중해 구축하고 있습니다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,53 @@
+---
+interface Slide {
+  id: string;
+  label: string;
+  color: string;
+  caption?: string;
+  ratio?: 'square' | 'portrait' | 'wide';
+}
+
+interface Props {
+  slides: Slide[];
+}
+const { slides } = Astro.props;
+---
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+  {slides.map((slide, i) => {
+    const aspectClass = {
+      square: 'aspect-square',
+      portrait: 'aspect-[3/4]',
+      wide: 'aspect-[4/3]',
+    }[slide.ratio ?? 'portrait'];
+
+    return (
+      <div class={`group relative overflow-hidden ${aspectClass} ${i === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}>
+        <!-- placeholder -->
+        <div
+          class="absolute inset-0 img-placeholder analog-strong"
+          style={`background-color: ${slide.color};`}
+        >
+          <div class="flex flex-col items-center justify-center gap-2 h-full">
+            <span class="text-xs tracking-[0.2em] uppercase opacity-30 font-display">
+              {slide.id}
+            </span>
+          </div>
+        </div>
+
+        <!-- 캡션 오버레이 -->
+        <div class="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-[#1A1A1A]/60 to-transparent
+                    translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+          <p class="text-[#F5F1EA] text-xs tracking-[0.15em] uppercase font-display">
+            {slide.label}
+          </p>
+          {slide.caption && (
+            <p class="text-[#F5F1EA]/60 text-[10px] mt-1 tracking-wide">
+              {slide.caption}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  })}
+</div>

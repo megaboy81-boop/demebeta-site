@@ -1,0 +1,45 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-[#1A1A1A]/10 mt-24">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <!-- 브랜드 -->
+      <div>
+        <p class="font-display font-bold tracking-[0.15em] text-sm uppercase mb-3">DEMEBETA</p>
+        <p class="text-xs text-[#1A1A1A]/50 leading-relaxed">
+          Quiet Flex from Seongsu<br />
+          Since 2021
+        </p>
+      </div>
+
+      <!-- 링크 -->
+      <div>
+        <p class="text-xs tracking-[0.12em] uppercase text-[#1A1A1A]/40 mb-4">Shop</p>
+        <div class="flex flex-col gap-2">
+          <a href="https://www.29cm.co.kr/store/brand/12403" target="_blank" rel="noopener"
+             class="text-xs text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors">29CM</a>
+          <a href="https://demebeta.com" target="_blank" rel="noopener"
+             class="text-xs text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors">Official Store</a>
+        </div>
+      </div>
+
+      <!-- 소셜 -->
+      <div>
+        <p class="text-xs tracking-[0.12em] uppercase text-[#1A1A1A]/40 mb-4">Follow</p>
+        <a href="https://instagram.com/demebeta_official" target="_blank" rel="noopener"
+           class="text-xs text-[#1A1A1A]/60 hover:text-[#1A1A1A] transition-colors">
+          @demebeta_official
+        </a>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-[#1A1A1A]/8 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+      <p class="text-xs text-[#1A1A1A]/30 tracking-wide">
+        &copy; {year} DEMEBETA. All rights reserved.
+      </p>
+      <p class="text-xs text-[#1A1A1A]/25 tracking-widest uppercase">Seoul, Korea</p>
+    </div>
+  </div>
+</footer>

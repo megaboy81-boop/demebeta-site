@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { betaItems } from '../data/beta';
+
+const statusColor: Record<string, string> = {
+  FAIL:      '#722F37',
+  ON_HOLD:   '#555D50',
+  CANDIDATE: '#8B9B7A',
+};
+---
+
+<Layout title="Beta" description="DEMEBETA Beta — 실험, 실패, 보류의 기록">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 pb-6">
+    <p class="font-mono text-caption tracking-[0.25em] uppercase mb-4" style="color: rgba(44,44,44,0.35);">
+      Experimental Archive
+    </p>
+    <h1 class="font-display font-bold tracking-tight uppercase" style="color: var(--text-ink); font-size: clamp(28px, 4vw, 56px);">
+      BETA
+    </h1>
+    <p class="font-kr mt-4 max-w-lg" style="color: rgba(44,44,44,0.5); font-size: 14px; line-height: 1.7;">
+      폐기되고 보류된 디자인들. 실패의 기록도 아카이브의 일부다.
+    </p>
+  </section>
+
+  <!-- 범례 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-10">
+    <div class="flex gap-6">
+      {Object.entries(statusColor).map(([status, color]) => (
+        <div class="flex items-center gap-2">
+          <div class="w-2 h-2 rounded-full" style={`background-color: ${color};`}></div>
+          <span class="font-mono text-caption" style="color: rgba(44,44,44,0.5);">{status}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 메이슨리 비정형 그리드 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-24">
+    <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-3">
+      {betaItems.map((item, i) => {
+        const heights = ['aspect-square', 'aspect-[3/4]', 'aspect-video', 'aspect-[4/5]'];
+        const h = heights[i % heights.length];
+        return (
+          <div class="break-inside-avoid mb-3 relative group">
+            <!-- 이미지 placeholder -->
+            <div class={`${h} archive-photo flex flex-col items-center justify-center p-4`}
+                 style={`background-color: ${item.color};`}>
+              <p class="font-mono text-caption text-center" style="color: rgba(249,248,246,0.3);">
+                {item.serial}
+              </p>
+            </div>
+            <!-- 상태 오버레이 -->
+            <div class="p-3 border border-t-0 border-[#2C2C2C]/10">
+              <div class="flex items-center justify-between mb-1">
+                <p class="font-display text-sm font-bold uppercase" style="color: var(--text-ink);">
+                  {item.name}
+                </p>
+                <span class="font-mono text-caption px-2 py-0.5"
+                      style={`color: ${statusColor[item.status]}; border: 1px solid ${statusColor[item.status]}33; font-size: 10px;`}>
+                  {item.status}
+                </span>
+              </div>
+              <p class="font-mono text-caption mb-2" style="color: rgba(44,44,44,0.4);">
+                {item.technique}
+              </p>
+              <!-- 손글씨 느낌 이유 텍스트 -->
+              <p class="font-kr text-caption leading-relaxed" style="color: rgba(44,44,44,0.45); font-size: 11px;">
+                {item.reason}
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+</Layout>

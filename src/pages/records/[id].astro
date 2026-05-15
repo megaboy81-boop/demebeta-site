@@ -1,0 +1,66 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { records } from '../../data/records';
+
+export function getStaticPaths() {
+  return records.map((r) => ({ params: { id: r.id } }));
+}
+
+const { id } = Astro.params;
+const r = records.find((x) => x.id === id)!;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title={`${r.serial} — DEMEBETA`} description={`DEMEBETA ${r.serial} 디자인 기록`}>
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-14 pb-6">
+    <a href={`${base}/records`} class="font-mono text-caption tracking-[0.15em] mb-6 inline-block transition-opacity hover:opacity-60"
+       style="color: rgba(44,44,44,0.35);">
+      ← RECORDS
+    </a>
+  </section>
+
+  <!-- 시리얼 대형 타이포 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-8">
+    <h1 class="font-mono font-bold tracking-[0.05em] leading-none"
+        style="color: var(--text-ink); opacity: 0.12; font-size: clamp(32px, 8vw, 96px);">
+      {r.serial}
+    </h1>
+    <h2 class="font-display font-bold uppercase mt-2"
+        style="color: var(--text-ink); font-size: clamp(20px, 3vw, 40px);">
+      {r.name}
+    </h2>
+    <p class="font-mono text-caption tracking-[0.15em] mt-2" style="color: rgba(44,44,44,0.4);">
+      {r.season} — {r.status}
+    </p>
+  </section>
+
+  <!-- 좌:코드 / 우:디자인 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- 스펙 코드 블록 -->
+      <div class="border border-[#2C2C2C]/10 p-6 font-mono text-sm" style="color: rgba(44,44,44,0.6);">
+        <p class="text-caption tracking-[0.2em] uppercase mb-4" style="color: rgba(44,44,44,0.3);">spec.json</p>
+        <pre style="white-space: pre-wrap; line-height: 1.8;">{{
+  "serial":    "{r.serial}",
+  "season":    "{r.season}",
+  "status":    "{r.status}",
+  "material":  "{r.material}",
+  "technique": "{r.technique}",
+  "closure":   "{r.specs.closure}",
+  "brim":      "{r.specs.brim}",
+  "panels":    "{r.specs.panels}",
+  "fit":       "{r.specs.fit}"
+}}</pre>
+      </div>
+
+      <!-- 디자인 placeholder -->
+      <div class="archive-photo flex items-center justify-center"
+           style={`background-color: ${r.color}; aspect-ratio: 1/1;`}>
+        <div class="text-center">
+          <p class="font-mono text-caption" style="color: rgba(249,248,246,0.3);">{r.id}</p>
+          <p class="font-mono text-caption mt-2" style="color: rgba(249,248,246,0.2);">Design Placeholder</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

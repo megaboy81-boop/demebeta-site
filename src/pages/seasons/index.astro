@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { seasons } from '../../data/seasons';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Seasons" description="DEMEBETA 시즌 아카이브 — SS26부터 창립 AW21까지">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-16 pb-6">
+    <p class="font-mono text-caption tracking-[0.25em] uppercase mb-4" style="color: rgba(44,44,44,0.35);">
+      Season Archive
+    </p>
+    <h1 class="font-display font-bold tracking-tight" style="color: var(--text-ink); font-size: clamp(28px, 4vw, 56px);">
+      SEASONS
+    </h1>
+  </section>
+
+  <!-- 타임라인 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-12">
+    <div class="relative">
+      <!-- 세로 라인 -->
+      <div class="absolute left-0 top-0 bottom-0 w-px" style="background-color: rgba(44,44,44,0.1);"></div>
+
+      <div class="flex flex-col gap-0">
+        {seasons.map((season, i) => (
+          <a href={`${base}/seasons/${season.slug}`}
+             class="group flex gap-8 md:gap-12 pl-8 py-10 border-b border-[#2C2C2C]/6 hover:bg-[#2C2C2C]/2 transition-colors duration-200">
+            <!-- 타임라인 도트 -->
+            <div class="absolute left-0 w-2 h-2 rounded-full -translate-x-[3px] mt-[52px] transition-all duration-300 group-hover:scale-150"
+                 style={`background-color: ${season.color};`}></div>
+
+            <!-- 날짜 -->
+            <div class="w-20 flex-shrink-0">
+              <p class="font-mono text-caption" style="color: rgba(44,44,44,0.3);">{season.releaseDate}</p>
+            </div>
+
+            <!-- 내용 -->
+            <div class="flex-1">
+              <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+                <div>
+                  <p class="font-display font-bold tracking-[0.08em] text-lg uppercase mb-1 transition-colors duration-200 group-hover:text-[#555D50]"
+                     style="color: var(--text-ink);">
+                    {season.code}
+                  </p>
+                  <p class="font-kr text-sm mb-3" style="color: rgba(44,44,44,0.5);">
+                    {season.label}
+                  </p>
+                  <p class="font-kr text-sm" style="color: rgba(44,44,44,0.45); max-width: 400px;">
+                    {season.note}
+                  </p>
+                </div>
+
+                <!-- 컬러 스와치 + 피스 수 -->
+                <div class="flex items-center gap-4">
+                  <div class="w-8 h-8 rounded-full flex-shrink-0"
+                       style={`background-color: ${season.color}; filter: sepia(0.2) contrast(0.9) brightness(0.9) saturate(0.8);`}></div>
+                  <div>
+                    <p class="font-mono text-caption" style="color: rgba(44,44,44,0.35);">PIECES</p>
+                    <p class="font-display font-bold text-xl" style="color: var(--text-ink);">{season.pieceCount}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

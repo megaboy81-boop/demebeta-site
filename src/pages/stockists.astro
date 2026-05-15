@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const stockists = [
+  {
+    name: '29CM',
+    type: 'Multi-brand Platform',
+    url: 'https://www.29cm.co.kr/store/brand/12403',
+    description: '한국 최대 패션 플랫폼. 전 시즌 라인업 상시 입점.',
+    region: 'Korea · Online',
+  },
+  {
+    name: 'DEMEBETA Official',
+    type: 'Official Store',
+    url: 'https://demebeta.com',
+    description: '공식 자사몰. 신규 출시 및 한정판 우선 구매.',
+    region: 'Worldwide · Online',
+  },
+  {
+    name: 'Instagram',
+    type: 'Social Commerce',
+    url: 'https://instagram.com/demebeta_official',
+    description: '신규 출시 알림, 룩북, 스트릿 스냅. DM으로 구매 문의.',
+    region: '@demebeta_official',
+  },
+];
+---
+
+<Layout title="Stockists" description="DEMEBETA 구매처 — 29CM · 자사몰 · 인스타그램">
+
+  <!-- 페이지 헤더 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-12 pt-16 pb-12">
+    <p class="text-xs tracking-[0.3em] uppercase text-[#1A1A1A]/40 mb-3">Shop</p>
+    <h1 class="font-display text-3xl md:text-4xl font-bold tracking-tight">Stockists</h1>
+    <p class="text-sm text-[#1A1A1A]/50 mt-3 max-w-md leading-relaxed">
+      DEMEBETA는 현재 온라인 채널을 통해 만날 수 있습니다.
+      오프라인 팝업 일정은 인스타그램에서 확인하세요.
+    </p>
+  </section>
+
+  <!-- 스토키스트 목록 -->
+  <section class="max-w-7xl mx-auto px-6 md:px-12 pb-24">
+    <div class="space-y-0">
+      {stockists.map((store, i) => (
+        <a
+          href={store.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex flex-col md:flex-row md:items-center justify-between
+                 border-t border-[#1A1A1A]/10 py-8 gap-4 hover:bg-[#F5F1EA]/50
+                 transition-colors duration-200 px-2 -mx-2"
+        >
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="text-[10px] text-[#1A1A1A]/30 tracking-[0.2em] font-display w-6">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <h2 class="font-display font-bold text-lg tracking-tight group-hover:text-[#B89968]
+                         transition-colors duration-200">
+                {store.name}
+              </h2>
+            </div>
+            <div class="pl-9">
+              <p class="text-xs text-[#1A1A1A]/40 tracking-wide mb-2 uppercase">{store.type}</p>
+              <p class="text-sm text-[#1A1A1A]/60 leading-relaxed">{store.description}</p>
+            </div>
+          </div>
+
+          <div class="pl-9 md:pl-0 flex md:flex-col items-center md:items-end gap-4">
+            <span class="text-xs text-[#1A1A1A]/40 tracking-wide">{store.region}</span>
+            <span class="text-xs tracking-[0.12em] uppercase border border-[#1A1A1A]/20
+                         px-3 py-1.5 group-hover:border-[#B89968] group-hover:text-[#B89968]
+                         transition-colors duration-200">
+              Visit &rarr;
+            </span>
+          </div>
+        </a>
+      ))}
+      <!-- 마지막 border -->
+      <div class="border-t border-[#1A1A1A]/10"></div>
+    </div>
+  </section>
+
+  <!-- 팝업 공지 배너 -->
+  <section class="border-t border-[#1A1A1A]/8 py-16 bg-[#1A1A1A]">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <p class="text-[#F5F1EA]/40 text-xs tracking-[0.3em] uppercase mb-2">Offline</p>
+        <p class="text-[#F5F1EA] font-display font-bold text-lg tracking-tight">
+          Pop-up Store TBA
+        </p>
+        <p class="text-[#F5F1EA]/50 text-xs mt-1.5">일정은 인스타그램에서 공지됩니다.</p>
+      </div>
+      <a
+        href="https://instagram.com/demebeta_official"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs tracking-[0.15em] uppercase border border-[#F5F1EA]/30 text-[#F5F1EA]/70
+               px-6 py-3 hover:border-[#B89968] hover:text-[#B89968] transition-colors duration-200"
+      >
+        Follow @demebeta_official
+      </a>
+    </div>
+  </section>
+
+</Layout>

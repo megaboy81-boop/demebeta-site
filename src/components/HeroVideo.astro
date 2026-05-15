@@ -1,0 +1,45 @@
+---
+interface Props {
+  tagline?: string;
+}
+const { tagline = 'DEMEBETA — Quiet Flex from Seongsu, Since 2021' } = Astro.props;
+---
+
+<section class="relative w-full h-[90vh] min-h-[560px] overflow-hidden bg-[#1A1A1A]">
+  <!-- 영상 placeholder (실 영상 추가 시 이 div를 <video>로 교체) -->
+  <div class="absolute inset-0 flex items-center justify-center"
+       style="filter: var(--analog-filter-strong);">
+    <div class="w-full h-full bg-gradient-to-br from-[#2A2520] via-[#1A1A1A] to-[#0D0D0D] opacity-90"></div>
+    <!-- 영상 그레인 텍스처 효과 -->
+    <div class="absolute inset-0 opacity-5"
+         style="background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%224%22 stitchTiles=%22stitch%22/><feColorMatrix type=%22saturate%22 values=%220%22/></filter><rect width=%22200%22 height=%22200%22 filter=%22url(%23n)%22/></svg>'); background-size: 200px 200px;">
+    </div>
+  </div>
+
+  <!-- HERO TEXT -->
+  <div class="absolute inset-0 flex flex-col items-center justify-center text-center px-6 z-10">
+    <p class="text-[#F5F1EA]/30 text-xs tracking-[0.4em] uppercase mb-8 font-display">
+      Seongsu, Seoul — 2021
+    </p>
+    <h1 class="text-[#F5F1EA] font-display font-bold tracking-[-0.01em]
+                text-4xl md:text-6xl lg:text-7xl leading-none mb-6">
+      DEMEBETA
+    </h1>
+    <p class="text-[#F5F1EA]/60 text-sm md:text-base tracking-[0.12em] uppercase max-w-md">
+      {tagline.replace('DEMEBETA — ', '')}
+    </p>
+
+    <!-- 스크롤 인디케이터 -->
+    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#F5F1EA]/30">
+      <span class="text-[10px] tracking-[0.3em] uppercase">Scroll</span>
+      <div class="w-px h-10 bg-[#F5F1EA]/20"></div>
+    </div>
+  </div>
+
+  <!-- VIDEO PLACEHOLDER 라벨 -->
+  <div class="absolute top-6 right-6 z-10">
+    <span class="text-[10px] text-[#F5F1EA]/20 tracking-[0.2em] uppercase border border-[#F5F1EA]/15 px-2 py-1">
+      Video
+    </span>
+  </div>
+</section>

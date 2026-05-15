@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const heroPhotos = [
+  { id: 'M1',  label: 'Seongsu Alley Main', color: '#3D3530', season: 'SS26', location: '성수동', code: 'DMB-SS26-001' },
+  { id: 'J01', label: 'Archive Look 01',     color: '#555D50', season: 'SS26', location: '성수동', code: 'DMB-SS26-002' },
+  { id: 'J02', label: 'Archive Look 02',     color: '#722F37', season: 'FW25', location: '성수동', code: 'DMB-FW25-001' },
+  { id: 'J03', label: 'Archive Look 03',     color: '#8B9B7A', season: 'SS25', location: '성수동', code: 'DMB-SS25-001' },
+  { id: 'J04', label: 'Archive Look 04',     color: '#D4B5B0', season: 'SS26', location: '성수동', code: 'DMB-SS26-004' },
+];
+---
+
+<Layout title="Lookbook" description="DEMEBETA 룩북 — Living Archive Editorial">
+
+  <!-- ── 풀스크린 히어로 ── -->
+  <section class="relative w-full" style="height: 90vh; min-height: 500px;">
+    <div class="absolute inset-0 archive-photo"
+         style={`background: linear-gradient(160deg, ${heroPhotos[0].color} 0%, #1A1A1A 100%);`}>
+    </div>
+    <div class="absolute inset-0 flex flex-col justify-end px-8 md:px-14 pb-12">
+      <p class="font-mono text-caption tracking-[0.2em] mb-3"
+         style="color: rgba(229,229,229,0.4);">
+        SS26 — EDITORIAL
+      </p>
+      <h1 class="font-display font-bold uppercase"
+          style="color: var(--text-faded); font-size: clamp(32px, 5vw, 72px); letter-spacing: 0.05em;">
+        LOOKBOOK
+      </h1>
+    </div>
+  </section>
+
+  <!-- ── 스크롤 갤러리 ── -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-24">
+    <div class="flex flex-col gap-4">
+      {heroPhotos.map((photo, i) => (
+        <div class={`flex ${i % 2 === 0 ? 'flex-col md:flex-row' : 'flex-col md:flex-row-reverse'} gap-4 items-stretch`}>
+          <!-- 메인 이미지 (70%) -->
+          <div class="md:w-[70%] archive-photo"
+               style={`background-color: ${photo.color}; aspect-ratio: 16/9; min-height: 300px; display:flex; align-items:center; justify-content:center;`}>
+            <span class="font-mono text-caption" style="color: rgba(249,248,246,0.2);">
+              {photo.id} placeholder
+            </span>
+          </div>
+          <!-- 메타 텍스트 (30%) -->
+          <div class="md:w-[30%] flex flex-col justify-end p-6 border border-[#2C2C2C]/8">
+            <p class="font-mono text-caption tracking-[0.15em] mb-2" style="color: rgba(44,44,44,0.35);">
+              {String(i + 1).padStart(2, '0')} / {heroPhotos.length}
+            </p>
+            <p class="font-display font-bold text-sm tracking-[0.08em] uppercase mb-1" style="color: var(--text-ink);">
+              {photo.label}
+            </p>
+            <p class="font-mono text-caption mb-4" style="color: rgba(44,44,44,0.4);">
+              {photo.season} · {photo.location}
+            </p>
+            <p class="font-mono text-caption" style="color: rgba(44,44,44,0.3);">
+              #{photo.code}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>

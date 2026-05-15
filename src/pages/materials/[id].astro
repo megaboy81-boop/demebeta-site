@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { materials } from '../../data/materials';
+
+export function getStaticPaths() {
+  return materials.map((m) => ({ params: { id: m.id } }));
+}
+
+const { id } = Astro.params;
+const m = materials.find((x) => x.id === id)!;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title={`${m.nameEn} — DEMEBETA Materials`} description={`DEMEBETA 소재: ${m.name}`}>
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-14 pb-6">
+    <a href={`${base}/materials`} class="font-mono text-caption tracking-[0.15em] mb-6 inline-block transition-opacity hover:opacity-60"
+       style="color: rgba(44,44,44,0.35);">
+      ← MATERIALS
+    </a>
+
+    <div class="flex flex-col md:flex-row gap-10 mt-6">
+      <!-- 컬러 스와치 대형 -->
+      <div class="w-full md:w-64 lg:w-80 flex-shrink-0">
+        <div class="aspect-square archive-photo flex items-center justify-center"
+             style={`background-color: ${m.color};`}>
+        </div>
+      </div>
+
+      <!-- 텍스트 -->
+      <div class="flex-1">
+        <span class="font-mono text-caption px-2 py-1 mb-4 inline-block"
+              style="color: rgba(44,44,44,0.4); border: 1px solid rgba(44,44,44,0.12); font-size: 10px;">
+          {m.category}
+        </span>
+        <h1 class="font-display font-bold uppercase mt-2"
+            style="color: var(--text-ink); font-size: clamp(24px, 4vw, 48px);">
+          {m.nameEn}
+        </h1>
+        <p class="font-kr mt-1 mb-6" style="color: rgba(44,44,44,0.5); font-size: 14px;">{m.name}</p>
+        <p class="font-kr leading-relaxed max-w-md"
+           style="color: rgba(44,44,44,0.6); font-size: 14px; line-height: 1.75;">
+          {m.description}
+        </p>
+
+        <!-- 사용된 디자인 -->
+        <div class="mt-8">
+          <p class="font-mono text-caption tracking-[0.15em] uppercase mb-4"
+             style="color: rgba(44,44,44,0.3);">Used In</p>
+          <div class="flex flex-col gap-2">
+            {m.usedIn.map((serial) => (
+              <div class="flex items-center gap-3 py-2 border-b border-[#2C2C2C]/6">
+                <div class="w-1 h-4" style={`background-color: ${m.color};`}></div>
+                <p class="font-mono text-sm" style="color: rgba(44,44,44,0.6);">{serial}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

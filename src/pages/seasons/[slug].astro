@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { seasons, seasonDesigns } from '../../data/seasons';
+
+export function getStaticPaths() {
+  return seasons.map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const season = seasons.find((s) => s.slug === slug)!;
+const designs = seasonDesigns[slug] ?? [];
+
+const displayDesigns = designs.length > 0
+  ? designs
+  : Array.from({ length: 8 }, (_, i) => ({
+      id: `${season.code}-${String(i + 1).padStart(3, '0')}`,
+      name: `${season.code} Design ${String(i + 1).padStart(2, '0')}`,
+      color: season.color,
+    }));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title={`${season.code} â ${season.label}`} description={`DEMEBETA ${season.code} ìì¦ ìì¹´ì´ë¸`}>
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-14 pb-4">
+    <a href={`${base}/seasons`} class="font-mono text-caption tracking-[0.15em] mb-6 inline-block transition-opacity hover:opacity-60"
+       style="color: rgba(44,44,44,0.35);">
+      â SEASONS
+    </a>
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mt-4">
+      <div>
+        <p class="font-mono text-caption tracking-[0.2em] mb-2" style="color: rgba(44,44,44,0.35);">{season.releaseDate}</p>
+        <h1 class="font-display font-bold tracking-[0.06em] uppercase" style="color: var(--text-ink); font-size: clamp(32px, 5vw, 72px);">
+          {season.code}
+        </h1>
+        <p class="font-kr mt-1" style="color: rgba(44,44,44,0.5); font-size: 14px;">{season.label}</p>
+      </div>
+      <div class="border border-[#2C2C2C]/10 p-5">
+        <p class="font-mono text-caption tracking-[0.1em] mb-1" style="color: rgba(44,44,44,0.35);">TOTAL PIECES</p>
+        <p class="font-display font-bold text-3xl" style="color: var(--text-ink);">{season.pieceCount}</p>
+      </div>
+    </div>
+    <p class="font-kr mt-8 max-w-lg" style="color: rgba(44,44,44,0.6); line-height: 1.7; font-size: 14px;">
+      {season.note}
+    </p>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-6 md:px-10 my-10">
+    <div class="border-t border-[#2C2C2C]/8"></div>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-24">
+    <p class="font-mono text-caption tracking-[0.2em] uppercase mb-8" style="color: rgba(44,44,44,0.3);">
+      Design Index
+    </p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      {displayDesigns.map((d) => (
+        <div class="group cursor-default">
+          <div class="aspect-square archive-photo mb-3 flex items-center justify-center"
+               style={`background-color: ${d.color};`}>
+            <span class="font-mono text-caption opacity-20" style="color: var(--bg-vintage-paper);">{d.id}</span>
+          </div>
+          <p class="font-mono text-caption" style="color: rgba(44,44,44,0.4);">{d.id}</p>
+          <p class="font-kr text-sm mt-0.5" style="color: var(--text-ink);">{d.name}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+</Layout>
