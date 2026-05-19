@@ -9,9 +9,9 @@ const supportHero = heroImages[1];
 const campaignFragments = heroImages.slice(4);
 const featuredCaps = featuredHatImages.slice(0, 3);
 const sectionCards = [
-  { href: `${base}/caps`, label: 'CAPS', sub: `${catalogHatImages.length} images`, tone: '#121212' },
-  { href: `${base}/lookbook`, label: 'LOOKBOOK', sub: 'campaign stills', tone: '#555D50' },
-  { href: `${base}/records`, label: 'RECORDS', sub: 'design archive', tone: '#722F37' },
+  { href: `${base}/caps/`, label: 'CAPS', sub: `${catalogHatImages.length} images`, tone: '#121212' },
+  { href: `${base}/lookbook/`, label: 'LOOKBOOK', sub: 'campaign stills', tone: '#555D50' },
+  { href: `${base}/records/`, label: 'RECORDS', sub: 'design archive', tone: '#722F37' },
 ];
 ---
 
@@ -35,7 +35,7 @@ const sectionCards = [
       <h1>DEMEBETA</h1>
       <p>성수의 조용한 리듬을 캡의 형태로 남기는 서울 기반 디자이너 캡 브랜드.</p>
     </div>
-    <a class="home-hero__entry" href={`${base}/caps`}>View Caps</a>
+    <a class="home-hero__entry" href={`${base}/caps/`}>View Caps</a>
   </section>
 
   <section class="brand-intro">
@@ -52,11 +52,11 @@ const sectionCards = [
   <section class="home-caps">
     <div class="section-head">
       <p class="eyebrow">Selected Caps</p>
-      <a href={`${base}/caps`}>View all {catalogHatImages.length}</a>
+      <a href={`${base}/caps/`}>View all {catalogHatImages.length}</a>
     </div>
     <div class="home-caps__grid">
       {featuredCaps.map((cap) => (
-        <a href={`${base}/caps#${cap.group}`} class="home-cap">
+        <a href={`${base}/caps/#${cap.group}`} class="home-cap">
           <img src={asset(cap.src)} alt={`${cap.id} ${cap.label}`} width={cap.width} height={cap.height} loading="lazy" />
           <span>{cap.id}</span>
         </a>

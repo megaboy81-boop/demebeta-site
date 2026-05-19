@@ -37,7 +37,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="materials-grid">
         {materials.map((m) => (
-          <a href={`${base}/materials/${m.id}`}
+          <a href={`${base}/materials/${m.id}/`}
              data-cat={m.category}
              class="material-card group border border-[#2C2C2C]/8 hover:border-[#2C2C2C]/20 transition-all duration-200">
             <!-- 컬러 스와치 -->
