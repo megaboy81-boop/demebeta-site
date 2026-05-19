@@ -1,86 +1,88 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { catalogHatImages, featuredHatImages, heroImages } from '../data/siteAssets';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const asset = (src: string) => `${base}${src}`;
+const hero = heroImages[0];
+const supportHero = heroImages[1];
+const campaignFragments = heroImages.slice(4);
+const featuredCaps = featuredHatImages.slice(0, 3);
 const sectionCards = [
-  { href: `${base}/lookbook`,  label: 'LOOKBOOK',  sub: '룩북',    color: '#3D3530', desc: 'Editorial Shots' },
-  { href: `${base}/seasons`,   label: 'SEASONS',   sub: '시즌',    color: '#555D50', desc: 'SS26 — AW21' },
-  { href: `${base}/records`,   label: 'RECORDS',   sub: '디자인 기록', color: '#722F37', desc: '30 Pieces' },
-  { href: `${base}/beta`,      label: 'BETA',      sub: '실험',    color: '#2E2E2E', desc: 'Failed & On Hold' },
-  { href: `${base}/materials`, label: 'MATERIALS', sub: '소재 연구', color: '#8B9B7A', desc: 'Fabric & Technique' },
+  { href: `${base}/caps`, label: 'CAPS', sub: `${catalogHatImages.length} images`, tone: '#121212' },
+  { href: `${base}/lookbook`, label: 'LOOKBOOK', sub: 'campaign stills', tone: '#555D50' },
+  { href: `${base}/records`, label: 'RECORDS', sub: 'design archive', tone: '#722F37' },
 ];
 ---
 
 <Layout title="Home" description="DEMEBETA — A Living Archive. Quiet Flex from Seongsu, Since 2021">
-  <!-- ── 풀스크린 히어로 (16:9) ── -->
-  <section class="relative w-full" style="aspect-ratio: 16/9; min-height: 56vw; max-height: 100vh;">
-    <!-- Placeholder: 빛바랜 그라데이션 -->
-    <div class="absolute inset-0 archive-photo"
-         style="background: linear-gradient(135deg, #3D3530 0%, #555D50 40%, #8B9B7A 70%, #D4B5B0 100%);">
+  <section class="home-hero">
+    <img
+      src={asset(hero.src)}
+      alt="DEMEBETA Seongsu alley campaign image"
+      width={hero.width}
+      height={hero.height}
+      class="home-hero__image"
+      fetchpriority="high"
+    />
+    <div class="home-hero__shade" aria-hidden="true"></div>
+    <div class="home-hero__mark">
+      <span>DEMEBETA</span>
+      <span>SEOUL QUIETWEAR ARCHIVE</span>
     </div>
-
-    <!-- 오버레이 텍스트 -->
-    <div class="absolute inset-0 flex flex-col justify-end px-8 md:px-14 pb-10 md:pb-14">
-      <p class="font-mono text-caption tracking-[0.2em] mb-3 fade-in-up"
-         style="color: rgba(249,248,246,0.4);">
-        M1 placeholder — Seongsu Alley Main
-      </p>
-      <h1 class="font-display font-bold tracking-[0.08em] uppercase fade-in-up-d1"
-          style="color: var(--text-faded); font-size: clamp(20px, 3.5vw, 48px);">
-        DEMEBETA — A Living Archive
-      </h1>
+    <div class="home-hero__copy">
+      <p class="eyebrow">Seongsu, Seoul · Since 2021</p>
+      <h1>DEMEBETA</h1>
+      <p>성수의 조용한 리듬을 캡의 형태로 남기는 서울 기반 디자이너 캡 브랜드.</p>
     </div>
+    <a class="home-hero__entry" href={`${base}/caps`}>View Caps</a>
   </section>
 
-  <!-- ── 5섹션 진입 카드 (스크롤 시 페이드인) ── -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 py-20 md:py-28">
-    <p class="font-mono text-caption tracking-[0.25em] uppercase mb-10 md:mb-14"
-       style="color: rgba(44,44,44,0.35);">
-      Archive Index
+  <section class="brand-intro">
+    <div>
+      <p class="eyebrow">Quiet Caps, Built Like Records</p>
+      <h2>로고보다 질감, 유행보다 착용감. DEMEBETA는 매일 쓰는 캡을 시즌의 기록으로 만든다.</h2>
+    </div>
+    <p>
+      DEME는 로컬, BETA는 계속 진화하는 상태를 뜻한다. 부드러운 코튼 트윌, 낮은 크라운,
+      절제된 워드마크와 톤온톤 자수. DEMEBETA의 캡은 크게 말하지 않지만 오래 남는 균형을 목표로 한다.
     </p>
+  </section>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3" id="section-cards">
-      {sectionCards.map((card, i) => (
-        <a href={card.href}
-           class={`group block p-6 md:p-7 border border-[#2C2C2C]/10 hover:border-[#2C2C2C]/30
-                   transition-all duration-300 fade-in-up`}
-           style={`animation-delay: ${i * 0.08}s; animation-fill-mode: both;`}>
-          <!-- 컬러 도트 -->
-          <div class="w-2 h-2 rounded-full mb-6 transition-transform duration-300 group-hover:scale-125"
-               style={`background-color: ${card.color};`}></div>
-          <p class="font-display font-bold tracking-[0.1em] text-sm uppercase mb-1"
-             style="color: var(--text-ink);">
-            {card.label}
-          </p>
-          <p class="font-kr text-caption mb-4" style="color: rgba(44,44,44,0.45);">
-            {card.sub}
-          </p>
-          <p class="font-mono text-caption" style="color: rgba(44,44,44,0.3);">
-            {card.desc}
-          </p>
-          <div class="mt-6 w-4 h-px transition-all duration-300 group-hover:w-full"
-               style={`background-color: ${card.color};`}></div>
+  <section class="home-caps">
+    <div class="section-head">
+      <p class="eyebrow">Selected Caps</p>
+      <a href={`${base}/caps`}>View all {catalogHatImages.length}</a>
+    </div>
+    <div class="home-caps__grid">
+      {featuredCaps.map((cap) => (
+        <a href={`${base}/caps#${cap.group}`} class="home-cap">
+          <img src={asset(cap.src)} alt={`${cap.id} ${cap.label}`} width={cap.width} height={cap.height} loading="lazy" />
+          <span>{cap.id}</span>
         </a>
       ))}
     </div>
   </section>
-</Layout>
 
-<script>
-  // IntersectionObserver로 카드 페이드인
-  const cards = document.querySelectorAll('#section-cards a');
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          (entry.target as HTMLElement).style.animationPlayState = 'running';
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  cards.forEach((card) => {
-    (card as HTMLElement).style.animationPlayState = 'paused';
-    observer.observe(card);
-  });
-</script>
+  <section class="archive-entries">
+    {sectionCards.map((card) => (
+      <a href={card.href} class="archive-entry" style={`--entry-tone: ${card.tone};`}>
+        <span>{card.label}</span>
+        <small>{card.sub}</small>
+      </a>
+    ))}
+  </section>
+
+  <section class="campaign-fragments">
+    <div class="campaign-fragments__text">
+      <p class="eyebrow">Campaign Fragments</p>
+      <h2>성수의 빛, 낮은 채도, 오래 쓴 것처럼 자연스러운 캡.</h2>
+    </div>
+    <div class="campaign-fragments__images">
+      <img src={asset(supportHero.src)} alt={supportHero.label} width={supportHero.width} height={supportHero.height} loading="lazy" />
+      {campaignFragments.map((image) => (
+        <img src={asset(image.src)} alt={image.label} width={image.width} height={image.height} loading="lazy" />
+      ))}
+    </div>
+  </section>
+</Layout>

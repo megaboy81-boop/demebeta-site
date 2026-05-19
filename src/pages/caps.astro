@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { catalogHatImages, hatImageDrops, hatImageGroups, heroImages } from '../data/siteAssets';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const asset = (src: string) => `${base}${src}`;
+const groupBlocks = hatImageGroups.map((group) => ({
+  ...group,
+  items: catalogHatImages.filter((image) => image.group === group.id),
+})).filter((group) => group.items.length > 0);
+const dropLabel = new Map(hatImageDrops.map((drop) => [drop.id, drop.label]));
+const mainCollection = catalogHatImages.filter((image) => image.group === 'main-collection');
+const heroCaps = [mainCollection[0], mainCollection[1], mainCollection[5], mainCollection[16]].filter(Boolean);
+---
+
+<Layout title="Caps" description="DEMEBETA designer cap collection from Seongsu, Seoul.">
+  <section class="caps-hero">
+    <div class="caps-hero__copy">
+      <p class="eyebrow">Caps Collection</p>
+      <h1>Caps for quiet daily repetition.</h1>
+      <p>
+        성수 기반 DEMEBETA의 캡 컬렉션. 톤온톤 자수, 워드마크, 패치, 워싱 소재를 중심으로
+        매일 쓰기 좋은 실루엣을 정리했다.
+      </p>
+    </div>
+    <div class="caps-hero__visual" aria-label="DEMEBETA cap preview">
+      {heroCaps.map((cap) => (
+        <img src={asset(cap.src)} alt={`${cap.id} preview`} width={cap.width} height={cap.height} loading="eager" />
+      ))}
+    </div>
+  </section>
+
+  <nav class="caps-index" aria-label="Caps catalog sections">
+    <a href="#main-collection">Core Collection · {mainCollection.length}</a>
+    {groupBlocks.filter((group) => group.id !== 'main-collection').map((group) => (
+      <a href={`#${group.id}`}>{group.label} · {group.items.length}</a>
+    ))}
+  </nav>
+
+  {groupBlocks.map((group) => (
+    <section id={group.id} class="catalog-section">
+      <div class="catalog-section__head">
+        <div>
+          <p class="eyebrow">{group.label}</p>
+          <h2>{group.items.length} images</h2>
+        </div>
+        <p>{group.description}</p>
+      </div>
+
+      <div class="catalog-grid">
+        {group.items.map((item, index) => (
+          <a
+            class={`catalog-item catalog-item--${item.group}`}
+            href={asset(item.src)}
+            data-drop={item.drop}
+            target="_blank"
+            rel="noopener"
+          >
+            <figure>
+              <div class="catalog-item__image">
+                <img
+                  src={asset(item.src)}
+                  alt={`${item.id} ${item.label}`}
+                  width={item.width}
+                  height={item.height}
+                  loading={index < 8 && group.id === 'main-collection' ? 'eager' : 'lazy'}
+                />
+              </div>
+              <figcaption>
+                <span>{item.id}</span>
+                <small>{dropLabel.get(item.drop) ?? item.drop}</small>
+              </figcaption>
+            </figure>
+          </a>
+        ))}
+      </div>
+    </section>
+  ))}
+
+</Layout>

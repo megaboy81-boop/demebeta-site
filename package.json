@@ -8,6 +8,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "sync:assets": "node scripts/sync-site-assets.mjs",
+    "sync:caps": "node scripts/sync-cap-production.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
